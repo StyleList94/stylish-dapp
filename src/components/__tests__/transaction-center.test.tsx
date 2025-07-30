@@ -1,6 +1,6 @@
-import type { Mock } from 'vitest';
-
 import '@testing-library/jest-dom/vitest';
+
+import type { Mock } from 'vitest';
 
 import { fireEvent, render, screen } from '@/lib/test-utils';
 import usePendingTransaction from '@/hooks/use-pending-transaction';
@@ -16,11 +16,14 @@ const txHash =
   '0x47085a68363365a56902ec7619f6054e6b044a87dd2813c1c0e1377279c423db';
 
 beforeEach(() => {
-  global.fetch = vi.fn().mockResolvedValue({
-    ok: true,
-    status: 200,
-    json: () => ({ message: 'fetched!' }),
-  });
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => ({ message: 'fetched!' }),
+    }),
+  );
 });
 
 describe('<TransactionCenter />', () => {

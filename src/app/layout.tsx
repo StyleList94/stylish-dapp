@@ -9,27 +9,11 @@ import getConfig from '@/lib/config';
 
 import AppProvider from '@/providers/app-provider';
 
-import Container from '@/components/layout/container';
-
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dapp.stylelist94.dev'),
   title: 'Stylish Ethereum DApp',
   description: 'Create your Stylish DApp',
-  keywords: ['DApp', 'Next.js template'],
-  openGraph: {
-    title: 'Stylish Ethereum DApp',
-    description: 'Create your Stylish DApp',
-    type: 'website',
-    siteName: 'Stylish Ethereum DApp',
-    url: '/',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Stylish Ethereum DApp',
-    description: 'Create your Stylish DApp',
-  },
 };
 
 export const viewport: Viewport = {
@@ -54,9 +38,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <AppProvider initialState={initialState}>
-          <Container>{children}</Container>
-        </AppProvider>
+        <AppProvider initialState={initialState}>{children}</AppProvider>
       </body>
     </html>
   );

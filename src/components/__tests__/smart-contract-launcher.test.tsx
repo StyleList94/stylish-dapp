@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom/vitest';
+
 import type { Mock } from 'vitest';
 
-import '@testing-library/jest-dom/vitest';
 import * as wagmi from 'wagmi';
 import { erc20Abi } from 'viem';
 import { userEvent } from '@testing-library/user-event';
@@ -29,11 +30,14 @@ vi.mock('@/hooks/use-estimate-contract-gas', () => ({
 vi.mock('');
 
 beforeEach(() => {
-  global.fetch = vi.fn().mockResolvedValue({
-    ok: true,
-    status: 200,
-    json: () => ({ message: 'fetched!' }),
-  });
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => ({ message: 'fetched!' }),
+    }),
+  );
 });
 
 describe('<SmartContractLauncher />', () => {

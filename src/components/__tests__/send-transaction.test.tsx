@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom/vitest';
+
 import type { Mock } from 'vitest';
 
-import '@testing-library/jest-dom/vitest';
 import * as wagmi from 'wagmi';
 
 import { fireEvent, render, screen } from '@/lib/test-utils';
@@ -19,11 +20,14 @@ vi.mock('wagmi', async () => {
 });
 
 beforeEach(() => {
-  global.fetch = vi.fn().mockResolvedValue({
-    ok: true,
-    status: 200,
-    json: () => ({ message: 'fetched!' }),
-  });
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => ({ message: 'fetched!' }),
+    }),
+  );
 });
 
 describe('<SendTransaction />', () => {

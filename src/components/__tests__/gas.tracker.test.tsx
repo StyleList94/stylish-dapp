@@ -14,16 +14,21 @@ const mockData = {
 
 describe('<GasTracker />', () => {
   beforeEach(() => {
-    global.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: () => mockData,
-    });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => mockData,
+      }),
+    );
   });
 
   it('should be rendered', async () => {
     render(<GasTracker />);
 
+    expect(await screen.findByLabelText('block-icon')).toBeInTheDocument();
+    expect(screen.getByText('23003980')).toBeInTheDocument();
     expect(await screen.findByLabelText('average-icon')).toBeInTheDocument();
     expect(screen.getByText('20 gwei')).toBeInTheDocument();
     expect(screen.getByLabelText('high-icon')).toBeInTheDocument();
