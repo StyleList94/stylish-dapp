@@ -12,7 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "fetch:upstream": "git fetch upstream --no-tag --depth=1"
   },
   "dependencies": {
     "@metamask/providers": "^22.1.0",
